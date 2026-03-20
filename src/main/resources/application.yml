@@ -1,0 +1,25 @@
+server:
+  port: 9090
+  tomcat:
+    max-part-count: 100
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  datasource:
+    url: jdbc:oracle:thin:@//127.0.0.1:1521/xe
+    hikari:
+      username: blue
+      password: java$!
+
+mybatis:
+  mapper-locations: classpath*:/mybatis/mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+file:   # 경고를 없애기 위해 META-INF/spring-configuration-metadata.json 파일에 사용자 정의 속성 설정
+  upload-root: ${user.home}/dev/uploads  # 외부경로에 파일 업로드
+    # 리눅스에서 /home/username/dev/uploads 로 해석
+    # 윈도우에서 C:\Users\username\dev\uploads 로 해석
