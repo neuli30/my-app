@@ -1,4 +1,4 @@
-name: Deploy with DockerHub to Ubuntu Server
+name: Deploy with Docker Compose to Ubuntu Server
 
 on:
   push:
@@ -66,14 +66,13 @@ jobs:
       # 등록 => 서버키가 등록 
       - name: Add known_hosts
         run: |
-          ssh-keyscan -H ed25519 54.180.230.206 >> ~/.ssh/known_hosts
+          ssh-keyscan -H ed25519 13.124.234.72  >> ~/.ssh/known_hosts
 
       # container 실행
-      - name: Deploy on server using DockerHub image
+      - name: Deploy on server using Docker Compose
         run: |
-          ssh ubuntu@54.180.230.206 << 'EOF'
-            docker stop spring-my-app || true
-            docker rm spring-my-app || true
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/spring-my-app:latest
-            docker run -d --name spring-my-app -p 9090:9090 ${{ secrets.DOCKERHUB_USERNAME }}/spring-my-app:latest
+          ssh ubuntu@13.124.234.72  << 'EOF'
+            cd ~/app
+            docker compose pull
+            docker compose up -d
           EOF
